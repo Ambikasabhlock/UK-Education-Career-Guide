@@ -16,6 +16,5 @@ Pathfinder 2026 is a modern, interactive web application designed to help UK stu
 * **Lucide Icons** (Iconography)
 
 ## 🌐 Live Demo
-[Insert your GitHub Pages Link Here]
-
+ https://ambikasabhlock.github.io/UK-Education-Career-Guide/
 
