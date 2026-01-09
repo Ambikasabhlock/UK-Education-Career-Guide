@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pathfinder UK | Study & Career Hub</title>
+    <title>Pathfinder UK: 2026 Education & Career Guide</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -13,30 +13,39 @@
         tailwind.config = { darkMode: 'class' }
     </script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; padding-bottom: 80px; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
         [x-cloak] { display: none !important; }
-        .nav-active { color: #4f46e5 !important; font-weight: 800; }
-        .dark .nav-active { color: #818cf8 !important; }
+        .stage-card.active { border-color: #4f46e5; background: #f5f3ff; transform: translateY(-4px); }
+        .dark .stage-card.active { background: #1e1b4b; border-color: #6366f1; }
+        .career-card.active { border-color: #4f46e5; background: #eef2ff; ring: 4px; ring-color: rgba(79, 70, 229, 0.1); }
+        .dark .career-card.active { background: #1e1b4b; border-color: #6366f1; }
     </style>
 </head>
 <body x-data="{ 
-    tab: 'study', 
-    activeYear: 'y8',
-    career: 'ai',
+    tab: 'stages', 
+    activeStage: 'ks4',
+    career: 'ai', 
+    filter: 'all',
     darkMode: $persist(false),
     savedCareers: $persist([]),
     todos: $persist([]),
     newTodo: '',
-    pathways: {
-        ai: { title: 'AI & Robotics', icon: 'cpu', color: 'indigo', alevel: ['Maths', 'CS'], logic: 'Focus on Y9 Algebra & Python coding.' },
-        med: { title: 'Medicine', icon: 'stethoscope', color: 'rose', alevel: ['Chemistry', 'Biology'], logic: 'Master Y8 Cell Biology and Y9 Systems.' },
-        green: { title: 'Green Energy', icon: 'leaf', color: 'emerald', alevel: ['Physics', 'Geography'], logic: 'Y8 Earth Science is key here.' },
-        law: { title: 'Digital Law', icon: 'scale', color: 'amber', alevel: ['History', 'English'], logic: 'Top marks in Y9 English Analysis needed.' }
+    currentTime: '',
+    currentDate: '',
+    init() {
+        setInterval(() => {
+            const now = new Date();
+            this.currentTime = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+            this.currentDate = now.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        }, 1000);
     },
     addTodo() {
         if (this.newTodo.trim() === '') return;
         this.todos.push({ id: Date.now(), text: this.newTodo, completed: false });
         this.newTodo = '';
+    },
+    removeTodo(id) {
+        this.todos = this.todos.filter(todo => todo.id !== id);
     },
     toggleSave(id) {
         if (this.savedCareers.includes(id)) {
@@ -44,113 +53,219 @@
         } else {
             this.savedCareers.push(id);
         }
+    },
+    pathways: {
+        ai: { title: 'AI & Robot Engineer', icon: 'cpu', color: 'indigo', category: 'stem', gcse: ['Computer Science', 'Further Maths', 'Physics'], alevel: ['Mathematics', 'Further Maths', 'Computer Science'], salaryEntry: 45000, salaryPeak: 140000, logic: 'AI logic is built on Advanced Algebra and Calculus. Start coding early!' },
+        med: { title: 'Modern Doctor/Biotech', icon: 'stethoscope', color: 'rose', category: 'stem', gcse: ['Triple Science', 'Statistics', 'English'], alevel: ['Chemistry', 'Biology', 'Mathematics'], salaryEntry: 38831, salaryPeak: 145000, logic: 'Biological systems logic. Triple Science is the golden key for medical school.' },
+        green: { title: 'Green Energy Specialist', icon: 'leaf', color: 'emerald', category: 'stem', gcse: ['Physics', 'Maths', 'Geography'], alevel: ['Maths', 'Physics', 'Environmental Science'], salaryEntry: 32000, salaryPeak: 95000, logic: 'The UK transition to Net Zero means massive demand for wind and solar engineers.' },
+        law: { title: 'Digital Law & Ethics', icon: 'scale', color: 'amber', category: 'humanities', gcse: ['English Literature', 'History', 'Philosophy'], alevel: ['History', 'English Literature', 'Law'], salaryEntry: 42000, salaryPeak: 165000, logic: 'Logic and language are your tools. Focus on the legal ethics of Artificial Intelligence.' },
+        tlevel: { title: 'T-Level Specialist', icon: 'settings', color: 'slate', category: 'vocational', gcse: ['Maths', 'English', 'ICT'], alevel: ['Digital Production', 'Engineering'], salaryEntry: 28000, salaryPeak: 85000, logic: 'Practical logic. Spend 20% of your time in a real company while studying.' }
     }
 }" :class="{ 'dark': darkMode }" class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen">
 
-    <header class="bg-white dark:bg-slate-900 border-b dark:border-slate-800 p-4 sticky top-0 z-40">
-        <div class="flex justify-between items-center max-w-6xl mx-auto">
-            <h1 class="font-extrabold text-xl tracking-tighter">PATHFINDER <span class="text-indigo-600">2026</span></h1>
-            <button @click="darkMode = !darkMode" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-amber-500">
+    <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b dark:border-slate-800 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="bg-indigo-600 p-2 rounded-lg text-white"><i data-lucide="map"></i></div>
+                <div>
+                    <h1 class="font-extrabold text-lg tracking-tighter uppercase leading-none">Pathfinder</h1>
+                    <div class="flex gap-2 text-[10px] font-bold text-slate-400 mt-1 uppercase">
+                        <span x-text="currentDate"></span>
+                        <span class="text-indigo-500" x-text="currentTime"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex gap-2">
+                <button @click="tab = 'stages'" :class="tab === 'stages' ? 'bg-indigo-600 text-white' : 'text-slate-500'" class="px-4 py-2 rounded-full font-bold transition text-sm">Stages</button>
+                <button @click="tab = 'careers'" :class="tab === 'careers' ? 'bg-indigo-600 text-white' : 'text-slate-500'" class="px-4 py-2 rounded-full font-bold transition text-sm">Careers</button>
+                <button @click="tab = 'profile'" :class="tab === 'profile' ? 'bg-indigo-600 text-white' : 'text-slate-500'" class="px-4 py-2 rounded-full font-bold transition text-sm flex items-center gap-2">
+                    Profile <span class="bg-white/20 px-2 rounded text-[10px]" x-text="savedCareers.length + todos.length"></span>
+                </button>
+            </nav>
+            
+            <button @click="darkMode = !darkMode" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-amber-400">
                 <i :data-lucide="darkMode ? 'sun' : 'moon'" class="w-5 h-5"></i>
             </button>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto p-4">
+    <main class="max-w-6xl mx-auto p-6">
         
-        <div x-show="tab === 'study'" x-transition>
-            <div class="flex gap-2 mb-6">
-                <button @click="activeYear = 'y8'" :class="activeYear === 'y8' ? 'bg-indigo-600 text-white' : 'bg-white dark:bg-slate-900 text-slate-500'" class="flex-1 py-3 rounded-2xl font-bold shadow-sm transition-all border dark:border-slate-800">Year 8</button>
-                <button @click="activeYear = 'y9'" :class="activeYear === 'y9' ? 'bg-indigo-600 text-white' : 'bg-white dark:bg-slate-900 text-slate-500'" class="flex-1 py-3 rounded-2xl font-bold shadow-sm transition-all border dark:border-slate-800">Year 9</button>
+        <div x-show="tab === 'stages'" x-transition>
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold">Education Roadmap</h2>
+                <p class="text-slate-500 dark:text-slate-400">Essential milestones for the 2026 Academic Year.</p>
             </div>
 
-            <div class="space-y-4">
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-[2rem] shadow-sm border dark:border-slate-800">
-                    <h3 class="font-bold text-indigo-600 mb-4 flex items-center gap-2"><i data-lucide="book-open"></i> Core Study Topics</h3>
-                    <div x-show="activeYear === 'y8'" class="space-y-2">
-                        <p class="text-sm">• <strong>Maths:</strong> Linear Equations & Ratios</p>
-                        <p class="text-sm">• <strong>Science:</strong> Periodic Table & Light/Sound</p>
-                        <p class="text-sm">• <strong>English:</strong> Shakespeare & Poetry Analysis</p>
+            <div class="grid md:grid-cols-3 gap-6 mb-10">
+                <button @click="activeStage = 'ks3'" :class="activeStage === 'ks3' ? 'active' : 'bg-white dark:bg-slate-900'" class="stage-card p-6 rounded-[2rem] text-left border-2 border-transparent shadow-lg transition-all">
+                    <div class="bg-blue-100 dark:bg-blue-900/30 text-blue-600 p-2 w-fit rounded-lg mb-4"><i data-lucide="compass"></i></div>
+                    <p class="text-[10px] font-black uppercase text-slate-400">Ages 11-14</p>
+                    <h3 class="text-xl font-bold">KS3: Discovery</h3>
+                </button>
+                <button @click="activeStage = 'ks4'" :class="activeStage === 'ks4' ? 'active' : 'bg-white dark:bg-slate-900'" class="stage-card p-6 rounded-[2rem] text-left border-2 border-transparent shadow-lg transition-all">
+                    <div class="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 p-2 w-fit rounded-lg mb-4"><i data-lucide="brain"></i></div>
+                    <p class="text-[10px] font-black uppercase text-slate-400">Ages 14-16</p>
+                    <h3 class="text-xl font-bold">KS4: GCSE Logic</h3>
+                </button>
+                <button @click="activeStage = 'ks5'" :class="activeStage === 'ks5' ? 'active' : 'bg-white dark:bg-slate-900'" class="stage-card p-6 rounded-[2rem] text-left border-2 border-transparent shadow-lg transition-all">
+                    <div class="bg-purple-100 dark:bg-purple-900/30 text-purple-600 p-2 w-fit rounded-lg mb-4"><i data-lucide="award"></i></div>
+                    <p class="text-[10px] font-black uppercase text-slate-400">Ages 16-18</p>
+                    <h3 class="text-xl font-bold">KS5: Specialist</h3>
+                </button>
+            </div>
+
+            <div class="bg-slate-900 dark:bg-indigo-950 p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
+                <div x-show="activeStage === 'ks3'" class="space-y-4">
+                    <h4 class="text-3xl font-black text-blue-400">Discovery Phase</h4>
+                    <p class="text-slate-300 max-w-2xl text-lg">In KS3, the goal is to find your natural interests. Focus on taking part in extracurriculars and mastering the basics of English and Maths before GCSE selections begin.</p>
+                    <ul class="flex flex-wrap gap-3 mt-6">
+                        <li class="bg-white/10 px-4 py-2 rounded-xl text-sm">Explore 12+ Subjects</li>
+                        <li class="bg-white/10 px-4 py-2 rounded-xl text-sm">Build Study Habits</li>
+                    </ul>
+                </div>
+                <div x-show="activeStage === 'ks4'" class="space-y-4">
+                    <h4 class="text-3xl font-black text-indigo-400">GCSE & Level 2</h4>
+                    <p class="text-slate-300 max-w-2xl text-lg">This is where the logic starts. Your Triple Science and Mathematics results will determine your access to high-tier STEM careers in 2026.</p>
+                    <div class="grid md:grid-cols-2 gap-4 mt-6">
+                        <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
+                            <span class="font-bold text-indigo-300 block mb-1">Core Focus</span>
+                            <span class="text-xs text-slate-400">English, Maths, Science, and 1 Language.</span>
+                        </div>
+                        <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
+                            <span class="font-bold text-emerald-300 block mb-1">Digital Future</span>
+                            <span class="text-xs text-slate-400">Computer Science is highly recommended.</span>
+                        </div>
                     </div>
-                    <div x-show="activeYear === 'y9'" class="space-y-2">
-                        <p class="text-sm">• <strong>Maths:</strong> Pythagoras & Quadratics</p>
-                        <p class="text-sm">• <strong>Science:</strong> Genetics & Energy Work</p>
-                        <p class="text-sm">• <strong>Computer Science:</strong> Python Selection & Cyber Security</p>
+                </div>
+                <div x-show="activeStage === 'ks5'" class="space-y-4">
+                    <h4 class="text-3xl font-black text-purple-400">Post-16 Mastery</h4>
+                    <p class="text-slate-300 max-w-2xl text-lg">Specialization begins. You must choose between the academic depth of A-Levels or the practical industry power of T-Levels.</p>
+                    <div class="flex flex-col md:flex-row gap-4 mt-6">
+                        <div class="p-6 bg-purple-900/50 rounded-2xl border border-purple-500/30 flex-1">
+                            <h5 class="font-black">A-Levels</h5>
+                            <p class="text-xs text-purple-200 mt-2">Best for University pathways and Research roles.</p>
+                        </div>
+                        <div class="p-6 bg-emerald-900/50 rounded-2xl border border-emerald-500/30 flex-1">
+                            <h5 class="font-black">T-Levels / Apprenticeships</h5>
+                            <p class="text-xs text-emerald-200 mt-2">80% Classroom, 20% Industry Placement (45 days).</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div x-show="tab === 'careers'" x-transition x-cloak class="space-y-4">
-            <template x-for="(data, key) in pathways">
-                <div class="bg-white dark:bg-slate-900 p-5 rounded-[2rem] shadow-sm border dark:border-slate-800">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex items-center gap-3">
-                            <div :class="'bg-'+data.color+'-100 text-'+data.color+'-600'" class="p-3 rounded-2xl"><i :data-lucide="data.icon"></i></div>
-                            <h3 class="font-bold text-lg dark:text-white" x-text="data.title"></h3>
+        <div x-show="tab === 'careers'" x-transition class="space-y-6">
+            <div class="flex flex-wrap gap-2 bg-white dark:bg-slate-900 p-2 rounded-2xl shadow-sm border dark:border-slate-800">
+                <button @click="filter = 'all'" :class="filter === 'all' ? 'bg-indigo-600 text-white' : 'text-slate-500'" class="px-5 py-2 rounded-xl text-sm font-bold transition">All Careers</button>
+                <button @click="filter = 'stem'" :class="filter === 'stem' ? 'bg-indigo-600 text-white' : 'text-slate-500'" class="px-5 py-2 rounded-xl text-sm font-bold transition">STEM</button>
+                <button @click="filter = 'humanities'" :class="filter === 'humanities' ? 'bg-indigo-600 text-white' : 'text-slate-500'" class="px-5 py-2 rounded-xl text-sm font-bold transition">Humanities</button>
+                <button @click="filter = 'vocational'" :class="filter === 'vocational' ? 'bg-indigo-600 text-white' : 'text-slate-500'" class="px-5 py-2 rounded-xl text-sm font-bold transition">Vocational</button>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8">
+                <aside class="lg:col-span-4 space-y-4">
+                    <template x-for="(data, key) in pathways">
+                        <div x-show="filter === 'all' || filter === data.category">
+                            <button @click="career = key" :class="career === key ? 'active' : 'bg-white dark:bg-slate-900'" class="career-card w-full text-left p-6 rounded-[2rem] border-2 border-transparent transition-all flex justify-between items-center shadow-lg relative group">
+                                <div class="flex items-center gap-4">
+                                   <div :class="'bg-'+data.color+'-100 dark:bg-'+data.color+'-900/30 text-'+data.color+'-600 dark:text-'+data.color+'-400'" class="p-3 rounded-xl"><i :data-lucide="data.icon"></i></div>
+                                   <span class="font-bold dark:text-white" x-text="data.title"></span>
+                                </div>
+                                <i @click.stop="toggleSave(key)" data-lucide="heart" :class="savedCareers.includes(key) ? 'fill-rose-500 text-rose-500' : 'text-slate-200 dark:text-slate-700'" class="w-5 h-5 transition-colors"></i>
+                            </button>
                         </div>
-                        <button @click="toggleSave(key)" :class="savedCareers.includes(key) ? 'text-rose-500' : 'text-slate-300'">
-                            <i data-lucide="heart" :class="savedCareers.includes(key) ? 'fill-current' : ''"></i>
-                        </button>
+                    </template>
+                </aside>
+
+                <div class="lg:col-span-8 bg-white dark:bg-slate-900 p-10 rounded-[3rem] shadow-2xl border dark:border-slate-800">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <span class="text-[10px] font-black uppercase text-indigo-500 tracking-widest" x-text="pathways[career].category"></span>
+                            <h2 class="text-4xl font-black dark:text-white mt-1" x-text="pathways[career].title"></h2>
+                        </div>
+                        <div :class="'bg-'+pathways[career].color+'-100 text-'+pathways[career].color+'-600'" class="p-5 rounded-3xl"><i :data-lucide="pathways[career].icon" class="w-8 h-8"></i></div>
                     </div>
-                    <p class="text-xs text-slate-500 mb-4" x-text="data.logic"></p>
-                    <div class="flex gap-2">
-                        <template x-for="subj in data.alevel">
-                            <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-lg text-[10px] font-bold" x-text="subj"></span>
+                    
+                    <div class="mb-10 p-8 bg-slate-50 dark:bg-slate-800/50 rounded-[2rem] border dark:border-slate-800">
+                        <div class="flex justify-between items-end mb-4">
+                            <div>
+                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Entry Salary</span>
+                                <p class="text-2xl font-black text-indigo-600 dark:text-indigo-400" x-text="'£' + pathways[career].salaryEntry.toLocaleString()"></p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Top Tier</span>
+                                <p class="text-2xl font-black text-indigo-900 dark:text-slate-200" x-text="'£' + pathways[career].salaryPeak.toLocaleString() + '+'"></p>
+                            </div>
+                        </div>
+                        <div class="h-3 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                            <div class="bg-indigo-600 h-full transition-all duration-1000" :style="'width: ' + (pathways[career].salaryPeak / 170000 * 100) + '%'"></div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <h4 class="text-xs font-black uppercase text-slate-400 tracking-widest">Essential Subjects</h4>
+                            <div class="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl border dark:border-indigo-900/30">
+                                <p class="text-sm font-bold text-slate-800 dark:text-indigo-200" x-text="pathways[career].alevel.join(', ')"></p>
+                            </div>
+                        </div>
+                        <div class="p-6 bg-slate-900 dark:bg-slate-800 rounded-[2rem] text-white">
+                            <h4 class="text-amber-400 font-bold text-xs uppercase mb-3 flex items-center gap-2">
+                                <i data-lucide="lightbulb" class="w-4 h-4"></i> Career Advice
+                            </h4>
+                            <p class="text-sm text-slate-300 italic leading-relaxed" x-text="pathways[career].logic"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div x-show="tab === 'profile'" x-transition x-cloak class="grid lg:grid-cols-2 gap-10">
+            <section>
+                <h2 class="text-2xl font-extrabold mb-6 flex items-center gap-2"><i data-lucide="check-square" class="text-indigo-600"></i> Study Tasks</h2>
+                <div class="bg-white dark:bg-slate-900 rounded-[2.5rem] p-6 shadow-xl border dark:border-slate-800">
+                    <form @submit.prevent="addTodo()" class="flex gap-2 mb-6">
+                        <input type="text" x-model="newTodo" placeholder="e.g. Apply for T-Level placement..." class="flex-1 bg-slate-100 dark:bg-slate-800 border-none rounded-2xl px-5 py-3 outline-none dark:text-white text-sm">
+                        <button type="submit" class="bg-indigo-600 text-white p-3 rounded-2xl"><i data-lucide="plus"></i></button>
+                    </form>
+                    <div class="space-y-3">
+                        <template x-for="todo in todos" :key="todo.id">
+                            <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" x-model="todo.completed" class="w-5 h-5 rounded text-indigo-600">
+                                    <span :class="todo.completed ? 'line-through text-slate-400' : 'dark:text-white'" class="text-sm" x-text="todo.text"></span>
+                                </div>
+                                <button @click="removeTodo(todo.id)" class="text-slate-300 hover:text-rose-500"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                            </div>
                         </template>
                     </div>
                 </div>
-            </template>
-        </div>
-
-        <div x-show="tab === 'profile'" x-transition x-cloak class="space-y-6">
-            <div class="bg-indigo-600 p-6 rounded-[2rem] text-white shadow-xl">
-                <h2 class="text-xl font-bold mb-1">My Planner</h2>
-                <p class="text-xs opacity-80" x-text="todos.filter(t => !t.completed).length + ' tasks remaining'"></p>
-            </div>
-
-            <form @submit.prevent="addTodo()" class="flex gap-2">
-                <input type="text" x-model="newTodo" placeholder="Add study task..." class="flex-1 p-4 bg-white dark:bg-slate-900 rounded-2xl border dark:border-slate-800 outline-none">
-                <button class="bg-indigo-600 text-white px-6 rounded-2xl font-bold">Add</button>
-            </form>
-
-            <div class="space-y-2">
-                <template x-for="todo in todos">
-                    <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl flex items-center justify-between border dark:border-slate-800">
-                        <div class="flex items-center gap-3">
-                            <input type="checkbox" x-model="todo.completed" class="w-5 h-5 rounded border-slate-300 text-indigo-600">
-                            <span :class="todo.completed ? 'line-through text-slate-400' : ''" class="text-sm" x-text="todo.text"></span>
+            </section>
+            <section>
+                <h2 class="text-2xl font-extrabold mb-6 flex items-center gap-2"><i data-lucide="heart" class="text-rose-600"></i> My Career Shortlist</h2>
+                <div class="space-y-4">
+                    <template x-for="id in savedCareers">
+                        <div class="bg-white dark:bg-slate-900 p-5 rounded-[2rem] shadow-lg flex items-center justify-between border dark:border-slate-800">
+                            <div class="flex items-center gap-4">
+                                <div :class="'bg-'+pathways[id].color+'-100 text-'+pathways[id].color+'-600'" class="p-3 rounded-xl"><i :data-lucide="pathways[id].icon"></i></div>
+                                <h4 class="font-bold dark:text-white" x-text="pathways[id].title"></h4>
+                            </div>
+                            <button @click="toggleSave(id)" class="text-rose-500 p-2"><i data-lucide="x-circle" class="w-5 h-5"></i></button>
                         </div>
-                        <button @click="todos = todos.filter(t => t.id !== todo.id)" class="text-slate-300 hover:text-rose-500"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-                    </div>
-                </template>
-            </div>
+                    </template>
+                </div>
+            </section>
         </div>
     </main>
-
-    <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t dark:border-slate-800 px-6 py-3 z-50 flex justify-between items-center shadow-2xl">
-        <button @click="tab = 'study'" :class="tab === 'study' ? 'nav-active' : 'text-slate-400'" class="flex flex-col items-center gap-1 transition-all">
-            <i data-lucide="book"></i>
-            <span class="text-[10px] font-bold">Study</span>
-        </button>
-        <button @click="tab = 'careers'" :class="tab === 'careers' ? 'nav-active' : 'text-slate-400'" class="flex flex-col items-center gap-1 transition-all">
-            <i data-lucide="briefcase"></i>
-            <span class="text-[10px] font-bold">Careers</span>
-        </button>
-        <button @click="tab = 'profile'" :class="tab === 'profile' ? 'nav-active' : 'text-slate-400'" class="flex flex-col items-center gap-1 transition-all relative">
-            <i data-lucide="user"></i>
-            <span class="text-[10px] font-bold">Profile</span>
-            <div x-show="todos.length > 0" class="absolute -top-1 -right-1 w-2 h-2 bg-rose-500 rounded-full"></div>
-        </button>
-    </nav>
 
     <script>
         lucide.createIcons();
         document.addEventListener('alpine:initialized', () => {
             Alpine.effect(() => {
-                const t = Alpine.store('tab');
-                const d = Alpine.store('darkMode');
-                setTimeout(() => lucide.createIcons(), 50);
+                const state = [Alpine.store('tab'), Alpine.store('darkMode'), Alpine.store('career'), Alpine.store('todos'), Alpine.store('filter')];
+                setTimeout(() => lucide.createIcons(), 30);
             });
         });
     </script>
