@@ -18,7 +18,4 @@ Pathfinder 2026 is a modern, interactive web application designed to help UK stu
 ## 🌐 Live Demo
 [Insert your GitHub Pages Link Here]
 
-## 📝 How to Use
-1. Clone the repository.
-2. Open `index.html` in any modern web browser.
-3. No build steps or installations required!
+
