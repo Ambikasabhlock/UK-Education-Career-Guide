@@ -144,10 +144,11 @@
             </div>
 
             <div class="bg-slate-900 dark:bg-indigo-950 p-6 md:p-10 rounded-[2.5rem] md:rounded-[3rem] text-white shadow-2xl relative overflow-hidden transition-all duration-500 min-h-[400px]">
+                
                 <div x-show="activeStage === 'ks3'" x-transition:enter="transition ease-out duration-300" class="space-y-6">
                     <div class="flex justify-between items-start">
                         <h4 class="text-2xl md:text-4xl font-black text-blue-400 uppercase tracking-tighter">Discovery Phase</h4>
-                        <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-[10px] font-bold uppercase">Years 7-9</span>
+                        <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-[10px] font-bold uppercase">Ages 11-14</span>
                     </div>
                     <p class="text-slate-300 max-w-2xl text-base md:text-lg leading-relaxed">
                         In KS3, the goal is to discover where your natural logic and creativity overlap. This is the foundation for your <span x-text="currentYear"></span> GCSE selections.
@@ -157,13 +158,13 @@
                             <h5 class="text-blue-400 font-black flex items-center gap-2 uppercase text-sm"><i data-lucide="target" class="w-4 h-4"></i> Strategy</h5>
                             <ul class="text-slate-400 space-y-3">
                                 <li class="flex items-start gap-3 text-sm"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 shrink-0"></span> Master Algebra and Ratio (Foundation for Science)</li>
-                                <li class="flex items-start gap-3 text-sm"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 shrink-0"></span> Aim for a "Reading Age" higher than your actual age</li>
-                                <li class="flex items-start gap-3 text-sm"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 shrink-0"></span> Join at least one STEM or Debating club</li>
+                                <li class="flex items-start gap-3 text-sm"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 shrink-0"></span> Aim for a high Reading Age</li>
+                                <li class="flex items-start gap-3 text-sm"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 shrink-0"></span> Join a STEM or Debating club</li>
                             </ul>
                         </div>
-                        <div class="bg-white/5 p-6 rounded-[2rem] border border-white/10 flex flex-col justify-center">
+                        <div class="bg-white/5 p-6 rounded-[2rem] border border-white/10">
                             <h5 class="text-blue-300 font-bold text-sm mb-2">Discovery Portfolio</h5>
-                            <p class="text-xs text-slate-400 italic leading-relaxed">Start saving your best projects in Tech, Art, or English. This builds the confidence needed for high-pressure Year 11 exams.</p>
+                            <p class="text-xs text-slate-400 italic">Save your best projects in Tech, Art, or English to build confidence for Year 11.</p>
                         </div>
                     </div>
                 </div>
@@ -171,7 +172,7 @@
                 <div x-show="activeStage === 'ks4'" x-transition:enter="transition ease-out duration-300" class="space-y-6">
                     <div class="flex justify-between items-start">
                         <h4 class="text-2xl md:text-4xl font-black text-indigo-400 uppercase tracking-tighter">GCSE & Level 2</h4>
-                        <span class="bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full text-[10px] font-bold uppercase" x-text="'Year ' + currentYear"></span>
+                        <span class="bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full text-[10px] font-bold uppercase">Ages 14-16</span>
                     </div>
                     <p class="text-slate-300 max-w-2xl text-base md:text-lg leading-relaxed">
                         Triple Science and Mathematics results determine your access to STEM careers in <span class="text-white font-bold" x-text="currentYear"></span> and beyond.
@@ -179,11 +180,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
                         <div class="bg-indigo-900/40 p-6 rounded-3xl border border-indigo-500/30">
                             <h5 class="font-bold text-indigo-300 text-sm mb-2">STEM Priority</h5>
-                            <p class="text-xs text-slate-400">Grade 7+ in Maths is the typical passport for AI or Engineering pathways.</p>
+                            <p class="text-xs text-slate-400">Grade 7+ in Maths is typical for AI or Engineering pathways.</p>
                         </div>
                         <div class="bg-indigo-900/40 p-6 rounded-3xl border border-indigo-500/30">
                             <h5 class="font-bold text-emerald-400 text-sm mb-2">Rule of 9</h5>
-                            <p class="text-xs text-slate-400">Aim for quality over quantity. 8-10 strong GCSEs are better than 12 weak ones.</p>
+                            <p class="text-xs text-slate-400">8-10 strong GCSEs are better than 12 weak ones.</p>
                         </div>
                     </div>
                 </div>
@@ -191,27 +192,27 @@
                 <div x-show="activeStage === 'ks5'" x-transition:enter="transition ease-out duration-300" class="space-y-6">
                     <div class="flex justify-between items-start">
                         <h4 class="text-2xl md:text-4xl font-black text-purple-400 uppercase tracking-tighter leading-none">Post-16 Mastery</h4>
-                        <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-[10px] font-bold uppercase">Years 12-13</span>
+                        <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-[10px] font-bold uppercase">Ages 16-18</span>
                     </div>
                     <p class="text-slate-300 max-w-2xl text-base md:text-lg leading-relaxed">
-                        Specialization begins. Choose the pathway that matches how you learn: academic theory (A-Levels) or practical immersion (T-Levels).
+                        Specialization begins. Choose academic theory (A-Levels) or practical immersion (T-Levels).
                     </p>
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mt-6">
                         <div class="md:col-span-8 space-y-4">
                             <div class="p-5 bg-purple-900/30 rounded-3xl border border-purple-500/30">
                                 <h5 class="font-black text-purple-300 text-sm">Path A: Academic</h5>
-                                <p class="text-[11px] text-slate-400 mt-1">Study 3-4 A-Levels. Best for Research, Medicine, and Law. Focus on UCAS points.</p>
+                                <p class="text-[11px] text-slate-400 mt-1">Study 3-4 A-Levels for Research, Medicine, and Law.</p>
                             </div>
                             <div class="p-5 bg-emerald-900/30 rounded-3xl border border-emerald-500/30">
                                 <h5 class="font-black text-emerald-300 text-sm">Path B: Vocational</h5>
-                                <p class="text-[11px] text-slate-400 mt-1">Choose a T-Level or Level 3 Apprenticeship. Best for immediate earning potential.</p>
+                                <p class="text-[11px] text-slate-400 mt-1">T-Levels or Apprenticeships with industry placement.</p>
                             </div>
                         </div>
                         <div class="md:col-span-4 p-6 bg-white/5 rounded-[2rem] border border-white/10 text-center flex flex-col justify-center">
                             <i data-lucide="graduation-cap" class="w-8 h-8 text-purple-400 mx-auto mb-2"></i>
                             <h6 class="font-bold text-xs">Decision Year</h6>
                             <p class="text-[10px] text-slate-500 mt-1 uppercase font-black" x-text="currentYear + ' FOCUS'"></p>
-                            <p class="text-[10px] mt-3 text-slate-300">University Personal Statements or Apprenticeship CVs start here.</p>
+                            <p class="text-[10px] mt-3 text-slate-300 italic">Personal Statements or CVs start here.</p>
                         </div>
                     </div>
                 </div>
@@ -271,7 +272,7 @@
 
         <div x-show="tab === 'profile'" x-transition x-cloak class="space-y-10">
             <section class="bg-indigo-600 p-8 rounded-[2.5rem] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-                <div><h2 class="text-2xl font-black">Local Cloud Sync</h2><p class="text-indigo-100 text-sm">Save data from mobile, import on laptop.</p></div>
+                <div><h2 class="text-2xl font-black">Transfer Data</h2><p class="text-indigo-100 text-sm">Move your progress between your devices.</p></div>
                 <div class="flex gap-4">
                     <button @click="exportData()" class="bg-white text-indigo-600 px-6 py-3 rounded-2xl font-bold flex items-center gap-2 transition hover:bg-indigo-50"><i data-lucide="download"></i> Export</button>
                     <label class="bg-indigo-500 border-2 border-indigo-400 px-6 py-3 rounded-2xl font-bold flex items-center gap-2 cursor-pointer transition hover:bg-indigo-400"><i data-lucide="upload"></i> Import<input type="file" @change="importData($event)" class="hidden" accept=".json"></label>
@@ -280,14 +281,14 @@
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
                 <section>
-                    <h2 class="text-2xl font-extrabold mb-6 flex items-center gap-2 dark:text-white"><i data-lucide="check-square" class="text-indigo-600"></i> Active Tasks</h2>
+                    <h2 class="text-2xl font-extrabold mb-6 flex items-center gap-2"><i data-lucide="check-square" class="text-indigo-600"></i> Study Tasks</h2>
                     <div class="bg-white dark:bg-slate-900 rounded-[2.5rem] p-6 shadow-xl border dark:border-slate-800">
-                        <form @submit.prevent="addTodo()" class="flex gap-2 mb-6"><input type="text" x-model="newTodo" placeholder="Add educational goal..." class="flex-1 bg-slate-100 dark:bg-slate-800 border-none rounded-2xl px-5 py-3 outline-none dark:text-white"><button type="submit" class="bg-indigo-600 text-white p-3 rounded-2xl"><i data-lucide="plus"></i></button></form>
+                        <form @submit.prevent="addTodo()" class="flex gap-2 mb-6"><input type="text" x-model="newTodo" placeholder="Add a educational goal..." class="flex-1 bg-slate-100 dark:bg-slate-800 border-none rounded-2xl px-5 py-3 outline-none dark:text-white"><button type="submit" class="bg-indigo-600 text-white p-3 rounded-2xl"><i data-lucide="plus"></i></button></form>
                         <div class="space-y-3"><template x-for="todo in todos" :key="todo.id"><div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl"><div class="flex items-center gap-3"><input type="checkbox" x-model="todo.completed" class="w-5 h-5 text-indigo-600"><span :class="todo.completed ? 'line-through text-slate-400' : 'dark:text-white'" x-text="todo.text"></span></div><button @click="removeTodo(todo.id)" class="text-slate-300 hover:text-rose-500"><i data-lucide="trash-2"></i></button></div></template></div>
                     </div>
                 </section>
                 <section>
-                    <h2 class="text-2xl font-extrabold mb-6 flex items-center gap-2 dark:text-white"><i data-lucide="heart" class="text-rose-600"></i> Saved Careers</h2>
+                    <h2 class="text-2xl font-extrabold mb-6 flex items-center gap-2"><i data-lucide="heart" class="text-rose-600"></i> Saved Careers</h2>
                     <div class="space-y-4"><template x-for="id in savedCareers"><div class="bg-white dark:bg-slate-900 p-5 rounded-[2rem] shadow-lg flex items-center justify-between border dark:border-slate-800"><div class="flex items-center gap-4"><div :class="`bg-${pathways[id].color}-100 dark:bg-${pathways[id].color}-900/30 text-${pathways[id].color}-600 dark:text-${pathways[id].color}-400`" class="p-3 rounded-xl"><i :data-lucide="pathways[id].icon"></i></div><h4 class="font-bold dark:text-white" x-text="pathways[id].title"></h4></div><button @click="toggleSave(id)" class="text-rose-500"><i data-lucide="x-circle"></i></button></div></template></div>
                 </section>
             </div>
